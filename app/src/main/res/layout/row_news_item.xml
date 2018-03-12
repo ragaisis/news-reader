@@ -9,6 +9,7 @@
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginTop="4dp"
+    card_view:cardBackgroundColor="@android:color/white"
     card_view:cardCornerRadius="4dp">
 
     <android.support.constraint.ConstraintLayout
@@ -18,38 +19,38 @@
 
         <ImageView
             android:id="@+id/row_news_image_view"
-            android:layout_width="wrap_content"
+            android:layout_width="124dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintLeft_toLeftOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_editor_absoluteX="8dp"/>
+            card_view:layout_editor_absoluteX="8dp"
+            tools:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/row_news_title_text_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lines="3"
             android:textColor="@android:color/black"
             card_view:layout_constraintBottom_toTopOf="@+id/row_news_date_text_view"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/row_news_image_view"
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintVertical_bias="0.0"
-            android:lines="3"
-            android:ellipsize="end"
             tools:text="TextView"/>
 
         <TextView
@@ -59,7 +60,8 @@
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:textColor="@android:color/black"
+            android:gravity="center_horizontal"
+            android:textColor="@color/sub_title"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/row_news_image_view"

@@ -9,6 +9,6 @@ import retrofit2.http.Query
 interface NewsApi {
 
     @GET("everything")
-    fun getNewsByTopic(@Query("q") topic : String) : Observable<Result<NewsResponseBody>>
+    fun getNewsByTopic(@Query("q") topic : String) : Observable<NewsResponseBody>
 
 }

@@ -5,6 +5,8 @@ import android.widget.Toast
 import com.ragaisis.newsreader.adapters.NewsFeedAdapter
 import com.ragaisis.newsreader.api.NewsApi
 import com.ragaisis.newsreader.contracts.NewsFeedContract
+import com.ragaisis.newsreader.entities.NewsResponseArticle
+import com.ragaisis.newsreader.entities.NewsResponseBody
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -35,10 +37,15 @@ class NewsFeedPresenter @Inject constructor() : NewsFeedContract.Presenter {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> },
+                        { result -> displayList(result) },
                         { error -> showError(error) })
-        adapter.items = arrayListOf("1", "2", "3")
-        adapter.notifyDataSetChanged()
+    }
+
+    private fun displayList(response: NewsResponseBody?) {
+        val list: List<NewsResponseArticle>? = response?.articles
+        if (list != null) {
+            adapter.items = list
+        }
     }
 
     private fun showError(error: Throwable?) {

@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), NewsFeedContract.View {
         setContentView(R.layout.activity_main)
         (application as MainApplication).component.inject(this)
         initViews()
+        presenter.loadTasks()
     }
 
     private fun initViews() {
