@@ -35,6 +35,7 @@ class NewsFeedAdapter(context: Context, items: List<String>) : RecyclerView.Adap
     override fun onBindViewHolder(holder: NewsFeedViewHolder, position: Int) {
         val item = items[position]
         holder.titleTextView.text = item
+        holder.dateTextView.text = item
     }
 
 }
