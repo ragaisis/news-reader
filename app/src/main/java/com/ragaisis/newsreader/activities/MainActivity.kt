@@ -1,14 +1,16 @@
 package com.ragaisis.newsreader.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.Toast
+import com.google.gson.Gson
 import com.ragaisis.newsreader.MainApplication
 import com.ragaisis.newsreader.R
 import com.ragaisis.newsreader.contracts.NewsFeedContract
+import com.ragaisis.newsreader.entities.NewsResponseArticle
 import com.ragaisis.newsreader.presenter.NewsFeedPresenter
 import javax.inject.Inject
 
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity(), NewsFeedContract.View {
 
     @Inject
     lateinit var presenter: NewsFeedPresenter
+    @Inject
+    lateinit var gson: Gson
 
     lateinit var recyclerView: RecyclerView
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -41,8 +45,10 @@ class MainActivity : AppCompatActivity(), NewsFeedContract.View {
         })
     }
 
-    override fun itemClicked(item: String) {
-        Toast.makeText(this, item, Toast.LENGTH_SHORT).show()
+    override fun itemClicked(item: NewsResponseArticle) {
+        val newIntent = Intent(this, DetailsActivity::class.java)
+        DetailsActivity.setMessage(newIntent, gson.toJson(item))
+        startActivity(newIntent)
     }
 
     override fun onResume() {

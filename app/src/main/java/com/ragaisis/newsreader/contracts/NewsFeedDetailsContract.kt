@@ -1,23 +1,20 @@
 package com.ragaisis.newsreader.contracts
 
 import com.ragaisis.newsreader.BaseView
-import com.ragaisis.newsreader.adapters.NewsFeedAdapter
 import com.ragaisis.newsreader.entities.NewsResponseArticle
 import com.ragaisis.newsreader.presenter.BasePresenter
 
-interface NewsFeedContract {
+interface NewsFeedDetailsContract {
 
     interface View : BaseView<Presenter> {
+        fun updateUI(article: NewsResponseArticle?)
 
-        fun itemClicked(item: NewsResponseArticle)
-
+        fun openWebBrowser(url: String?)
     }
 
     interface Presenter : BasePresenter<View> {
 
-        fun createNewsFeedAdapter() : NewsFeedAdapter
-
-        fun loadTasks()
+        fun readFullArticleButtonClicked()
 
     }
 }

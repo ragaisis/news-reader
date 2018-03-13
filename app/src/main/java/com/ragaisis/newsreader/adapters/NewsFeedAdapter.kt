@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.ragaisis.newsreader.R
 import com.ragaisis.newsreader.entities.NewsResponseArticle
+import com.ragaisis.newsreader.util.getDisplayableDate
 import com.ragaisis.newsreader.viewholders.NewsFeedViewHolder
-import java.text.SimpleDateFormat
-import java.util.*
 
 class NewsFeedAdapter(val context: Context, items: List<NewsResponseArticle>) : RecyclerView.Adapter<NewsFeedViewHolder>() {
 
     private val inflater: LayoutInflater
 
-    var onClickListener: ((value: String) -> Unit)? = null
+    var onClickListener: ((value: NewsResponseArticle) -> Unit)? = null
     var items: List<NewsResponseArticle> = items
         set(items) {
             field = items
@@ -29,7 +28,7 @@ class NewsFeedAdapter(val context: Context, items: List<NewsResponseArticle>) : 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsFeedViewHolder {
         return NewsFeedViewHolder(inflater.inflate(R.layout.row_news_item, parent, false), clickListener = {
-            items[it].title?.let { item -> onClickListener?.invoke(item) }
+            onClickListener?.invoke(items[it])
         })
     }
 
@@ -44,12 +43,6 @@ class NewsFeedAdapter(val context: Context, items: List<NewsResponseArticle>) : 
                 .into(holder.imageView)
                 .onLoadFailed(AppCompatResources.getDrawable(context, R.mipmap.ic_launcher))
         holder.dateTextView.text = getDisplayableDate(items[position].publishedAt)
-    }
-
-    private fun getDisplayableDate(date: String?): String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val resultSdf = SimpleDateFormat("yyyy-MMMM-dd HH:mm", Locale.getDefault())
-        return resultSdf.format(sdf.parse(date))
     }
 
 }

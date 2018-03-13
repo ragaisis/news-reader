@@ -1,6 +1,7 @@
 package com.ragaisis.newsreader.dagger.components
 
 import com.ragaisis.newsreader.MainApplication
+import com.ragaisis.newsreader.activities.DetailsActivity
 import com.ragaisis.newsreader.activities.MainActivity
 import com.ragaisis.newsreader.dagger.module.ApiModule
 import com.ragaisis.newsreader.dagger.module.ApplicationModule
@@ -16,4 +17,5 @@ interface ApplicationComponent {
 
     fun inject(mainApplication: MainApplication)
     fun inject(mainApplication: MainActivity)
+    fun inject(detailsActivity: DetailsActivity)
 }

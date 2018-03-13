@@ -28,7 +28,7 @@ class NewsFeedPresenter @Inject constructor() : NewsFeedContract.Presenter {
         return adapter
     }
 
-    private fun onRowClicked(item: String) {
+    private fun onRowClicked(item: NewsResponseArticle) {
         newsFeedView?.itemClicked(item)
     }
 
