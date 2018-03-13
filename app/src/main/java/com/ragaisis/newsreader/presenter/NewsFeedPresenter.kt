@@ -1,6 +1,7 @@
 package com.ragaisis.newsreader.presenter
 
 import android.content.Context
+import android.widget.ImageView
 import android.widget.Toast
 import com.ragaisis.newsreader.adapters.NewsFeedAdapter
 import com.ragaisis.newsreader.api.NewsApi
@@ -24,12 +25,14 @@ class NewsFeedPresenter @Inject constructor() : NewsFeedContract.Presenter {
 
     override fun createNewsFeedAdapter(): NewsFeedAdapter {
         adapter = NewsFeedAdapter(context, ArrayList(0))
-        adapter.onClickListener = { item -> onRowClicked(item) }
+        adapter.onClickListener = {
+            article: NewsResponseArticle, imageView: ImageView -> onRowClicked(article, imageView)
+        }
         return adapter
     }
 
-    private fun onRowClicked(item: NewsResponseArticle) {
-        newsFeedView?.itemClicked(item)
+    private fun onRowClicked(item: NewsResponseArticle, imageView: ImageView) {
+        newsFeedView?.itemClicked(item, imageView)
     }
 
     override fun loadTasks() {

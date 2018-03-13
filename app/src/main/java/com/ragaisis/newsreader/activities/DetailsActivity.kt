@@ -109,7 +109,8 @@ class DetailsActivity : AppCompatActivity(), NewsFeedDetailsContract.View {
 
     override fun onResume() {
         super.onResume()
-        presenter.takeView(this);
+        presenter.takeView(this)
+        presenter.loadUi()
     }
 
     override fun onDestroy() {

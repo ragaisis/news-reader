@@ -6,7 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.ragaisis.newsreader.R
 
-class NewsFeedViewHolder(view: View, private val clickListener: (item: Int) -> Unit) : RecyclerView.ViewHolder(view) {
+class NewsFeedViewHolder(view: View,
+                         private val clickListener: (item: Int, sharedImageView: ImageView) -> Unit) : RecyclerView.ViewHolder(view) {
 
     val titleTextView : TextView
     val dateTextView : TextView
@@ -20,6 +21,6 @@ class NewsFeedViewHolder(view: View, private val clickListener: (item: Int) -> U
     }
 
     fun onClicked() {
-        clickListener.invoke(layoutPosition)
+        clickListener.invoke(layoutPosition, imageView)
     }
 }

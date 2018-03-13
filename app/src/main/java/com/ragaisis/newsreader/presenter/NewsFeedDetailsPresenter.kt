@@ -15,7 +15,6 @@ class NewsFeedDetailsPresenter @Inject constructor() : NewsFeedDetailsContract.P
 
     fun init(article: NewsResponseArticle?) {
         this.article = article
-        newsFeedDetailsView?.updateUI(article)
     }
 
     override fun readFullArticleButtonClicked() {
@@ -28,6 +27,10 @@ class NewsFeedDetailsPresenter @Inject constructor() : NewsFeedDetailsContract.P
 
     override fun dropView() {
         newsFeedDetailsView = null;
+    }
+
+    fun loadUi() {
+        newsFeedDetailsView?.updateUI(article)
     }
 
 }

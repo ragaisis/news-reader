@@ -1,5 +1,6 @@
 package com.ragaisis.newsreader.contracts
 
+import android.widget.ImageView
 import com.ragaisis.newsreader.BaseView
 import com.ragaisis.newsreader.adapters.NewsFeedAdapter
 import com.ragaisis.newsreader.entities.NewsResponseArticle
@@ -9,7 +10,7 @@ interface NewsFeedContract {
 
     interface View : BaseView<Presenter> {
 
-        fun itemClicked(item: NewsResponseArticle)
+        fun itemClicked(item: NewsResponseArticle, sharedImageView: ImageView)
 
     }
 

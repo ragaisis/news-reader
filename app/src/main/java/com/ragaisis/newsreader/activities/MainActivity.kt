@@ -1,11 +1,15 @@
 package com.ragaisis.newsreader.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.view.ViewCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.ImageView
 import com.google.gson.Gson
 import com.ragaisis.newsreader.MainApplication
 import com.ragaisis.newsreader.R
@@ -45,10 +49,18 @@ class MainActivity : AppCompatActivity(), NewsFeedContract.View {
         })
     }
 
-    override fun itemClicked(item: NewsResponseArticle) {
+    override fun itemClicked(item: NewsResponseArticle, sharedImageView: ImageView) {
         val newIntent = Intent(this, DetailsActivity::class.java)
         DetailsActivity.setMessage(newIntent, gson.toJson(item))
-        startActivity(newIntent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this,
+                    sharedImageView,
+                    ViewCompat.getTransitionName(sharedImageView))
+            startActivity(newIntent, options.toBundle())
+        } else {
+            startActivity(newIntent)
+        }
     }
 
     override fun onResume() {
