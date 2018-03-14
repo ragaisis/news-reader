@@ -36,20 +36,17 @@ class MainActivity : AppCompatActivity(), NewsFeedContract.View {
         setContentView(R.layout.activity_main)
         (application as MainApplication).component.inject(this)
         initViews()
-        presenter.loadTasks()
     }
 
     private fun initViews() {
         recyclerView = findViewById<RecyclerView>(R.id.activity_main_swipe_refresh_layout_recycler_view)
-        recyclerView.adapter = NewsFeedAdapter(this, ArrayList(0))
-
+        adapter = NewsFeedAdapter(this, ArrayList(0))
+        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.activity_main_swipe_refresh_layout)
         swipeRefreshLayout.isRefreshing = false
         swipeRefreshLayout.setOnRefreshListener({
-            presenter.loadTasks()
-            swipeRefreshLayout.isRefreshing = false
+            presenter.forceRefresh()
         })
     }
 
@@ -67,10 +64,14 @@ class MainActivity : AppCompatActivity(), NewsFeedContract.View {
         }
     }
 
+    override fun stopForceRefresh() {
+        swipeRefreshLayout.isRefreshing = false
+    }
+
     override fun loadNewsFeed(items: List<NewsResponseArticle>) {
-        adapter = NewsFeedAdapter(this, items)
-        adapter.onClickListener = {
-            article: NewsResponseArticle, imageView: ImageView -> rowItemClicked(article, imageView)
+        adapter.items = items
+        adapter.onClickListener = { article: NewsResponseArticle, imageView: ImageView ->
+            rowItemClicked(article, imageView)
         }
     }
 
@@ -82,7 +83,8 @@ class MainActivity : AppCompatActivity(), NewsFeedContract.View {
 
     override fun onResume() {
         super.onResume()
-        presenter.takeView(this);
+        presenter.takeView(this)
+        presenter.loadTasks(false)
     }
 
     override fun onDestroy() {
