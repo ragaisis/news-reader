@@ -107,6 +107,10 @@ class DetailsActivity : AppCompatActivity(), NewsFeedDetailsContract.View {
         startActivity(intent)
     }
 
+    override fun showError() {
+        titleTextView.setText(getString(R.string.news_details_error))
+    }
+
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)

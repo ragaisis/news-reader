@@ -10,13 +10,15 @@ interface NewsFeedContract {
 
     interface View : BaseView<Presenter> {
 
-        fun itemClicked(item: NewsResponseArticle, sharedImageView: ImageView)
+        fun rowItemClicked(item: NewsResponseArticle, sharedImageView: ImageView)
+
+        fun loadNewsFeed(items: List<NewsResponseArticle>)
+
+        fun showError(message: String?)
 
     }
 
     interface Presenter : BasePresenter<View> {
-
-        fun createNewsFeedAdapter() : NewsFeedAdapter
 
         fun loadTasks()
 

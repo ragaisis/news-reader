@@ -1,9 +1,6 @@
 package com.ragaisis.newsreader.presenter
 
 import android.content.Context
-import android.widget.ImageView
-import android.widget.Toast
-import com.ragaisis.newsreader.adapters.NewsFeedAdapter
 import com.ragaisis.newsreader.api.NewsApi
 import com.ragaisis.newsreader.contracts.NewsFeedContract
 import com.ragaisis.newsreader.entities.NewsResponseArticle
@@ -21,38 +18,20 @@ class NewsFeedPresenter @Inject constructor() : NewsFeedContract.Presenter {
     @Inject
     lateinit var api: NewsApi
 
-    private lateinit var adapter: NewsFeedAdapter
-
-    override fun createNewsFeedAdapter(): NewsFeedAdapter {
-        adapter = NewsFeedAdapter(context, ArrayList(0))
-        adapter.onClickListener = {
-            article: NewsResponseArticle, imageView: ImageView -> onRowClicked(article, imageView)
-        }
-        return adapter
-    }
-
-    private fun onRowClicked(item: NewsResponseArticle, imageView: ImageView) {
-        newsFeedView?.itemClicked(item, imageView)
-    }
-
     override fun loadTasks() {
         api.getNewsByTopic("Android")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result -> displayList(result) },
-                        { error -> showError(error) })
+                        { error -> newsFeedView?.showError(error.message) })
     }
 
     private fun displayList(response: NewsResponseBody?) {
         val list: List<NewsResponseArticle>? = response?.articles
         if (list != null) {
-            adapter.items = list
+            newsFeedView?.loadNewsFeed(list)
         }
-    }
-
-    private fun showError(error: Throwable?) {
-        Toast.makeText(context, error?.message, Toast.LENGTH_SHORT).show()
     }
 
     override fun takeView(view: NewsFeedContract.View) {
