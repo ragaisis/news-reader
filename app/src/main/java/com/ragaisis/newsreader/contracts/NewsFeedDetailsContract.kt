@@ -7,6 +7,8 @@ import com.ragaisis.newsreader.presenter.BasePresenter
 interface NewsFeedDetailsContract {
 
     interface View : BaseView<Presenter> {
+        fun showError()
+
         fun updateUI(article: NewsResponseArticle?)
 
         fun openWebBrowser(url: String?)

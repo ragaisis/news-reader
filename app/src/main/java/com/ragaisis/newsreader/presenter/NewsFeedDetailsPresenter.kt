@@ -30,7 +30,11 @@ class NewsFeedDetailsPresenter @Inject constructor() : NewsFeedDetailsContract.P
     }
 
     fun loadUi() {
-        newsFeedDetailsView?.updateUI(article)
+        if (article != null) {
+            newsFeedDetailsView?.updateUI(article)
+        } else {
+            newsFeedDetailsView?.showError()
+        }
     }
 
 }

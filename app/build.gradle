@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -26,6 +27,7 @@ ext {
     daggerVersion = '2.14.1'
     retrofitVersion = '2.3.0'
     glideVersion = '4.6.1'
+    mockitoVersion = '2.13.0'
 }
 
 dependencies {
@@ -53,8 +55,8 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
     annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
-}
 
-kapt {
-    generateStubs = true
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-android:$mockitoVersion"
+    testCompile "junit:junit:4.12"
 }

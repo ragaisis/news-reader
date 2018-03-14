@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">News reader</string>
     <string name="read_full_article_online">Read full article online</string>
+    <string name="news_details_error">Can\'t display news due to internal error \nPlease retrun to news list</string>
 </resources>
