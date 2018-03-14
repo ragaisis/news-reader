@@ -16,11 +16,15 @@ interface NewsFeedContract {
 
         fun showError(message: String?)
 
+        fun stopForceRefresh()
+
     }
 
     interface Presenter : BasePresenter<View> {
 
-        fun loadTasks()
+        fun loadTasks(forcedRefresh: Boolean)
+
+        fun forceRefresh()
 
     }
 }

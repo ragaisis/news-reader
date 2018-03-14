@@ -18,13 +18,22 @@ class NewsFeedPresenter @Inject constructor() : NewsFeedContract.Presenter {
     @Inject
     lateinit var api: NewsApi
 
-    override fun loadTasks() {
+    override fun loadTasks(forcedRefresh: Boolean) {
         api.getNewsByTopic("Android")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> displayList(result) },
+                        { result ->
+                            if (forcedRefresh) {
+                                newsFeedView?.stopForceRefresh()
+                            }
+                            displayList(result)
+                        },
                         { error -> newsFeedView?.showError(error.message) })
+    }
+
+    override fun forceRefresh() {
+        loadTasks(true)
     }
 
     private fun displayList(response: NewsResponseBody?) {
